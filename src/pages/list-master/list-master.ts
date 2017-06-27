@@ -14,11 +14,14 @@ import { Item } from '../../models/item';
 })
 export class ListMasterPage {
   currentItems: Array<any> = [];
-  name: any = JSON.parse(localStorage.getItem('token')).local.name;
+  name: any;
   constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
     this.items.query().subscribe((res) => {
           this.currentItems = res.reverse();
     });
+    if (localStorage.getItem('token')){
+       this.name = JSON.parse(localStorage.getItem('token')).local.name;
+    }
     this.getLocation();
 
   }

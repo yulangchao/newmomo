@@ -19,11 +19,13 @@ export class ItemCreatePage {
   form: FormGroup;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, public camera: Camera) {
-    this.form = formBuilder.group({
-      img: [''],
-      name: [JSON.parse(localStorage.getItem('token')).local.name],
-      text: ['']
-    });
+    if(localStorage.getItem('token')){
+      this.form = formBuilder.group({
+        img: [''],
+        name: [JSON.parse(localStorage.getItem('token')).local.name],
+        text: ['']
+      });
+    }
 
     // Watch the form for changes, and
     this.form.valueChanges.subscribe((v) => {
