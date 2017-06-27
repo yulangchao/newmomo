@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule, Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Storage, IonicStorageModule } from '@ionic/storage';
+import { MomentModule } from 'angular2-moment';
 
 import { MyApp } from './app.component';
 
@@ -22,7 +23,7 @@ import { TutorialPage } from '../pages/tutorial/tutorial';
 import { WelcomePage } from '../pages/welcome/welcome';
 
 import { Api } from '../providers/api';
-import { Items } from '../mocks/providers/items';
+import { Items } from '../providers/items';
 import { Settings } from '../providers/settings';
 import { User } from '../providers/user';
 
@@ -74,6 +75,7 @@ export function provideSettings(storage: Storage) {
     WelcomePage
   ],
   imports: [
+    MomentModule,
     BrowserModule,
     HttpModule,
     TranslateModule.forRoot({

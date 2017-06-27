@@ -13,7 +13,7 @@ import { Items } from '../../providers/providers';
   templateUrl: 'search.html'
 })
 export class SearchPage {
-  
+
   currentItems: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items) { }
@@ -27,8 +27,10 @@ export class SearchPage {
       this.currentItems = [];
       return;
     }
-    this.currentItems = this.items.query({
+    this.items.query({
       name: val
+    }).subscribe((res) => {
+          this.currentItems = res.reverse();
     });
   }
 

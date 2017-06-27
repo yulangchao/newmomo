@@ -13,10 +13,14 @@ import { Item } from '../../models/item';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-  currentItems: Item[];
-
+  currentItems: Array<any> = [];
+  name: any = JSON.parse(localStorage.getItem('token')).local.name;
   constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
-    this.currentItems = this.items.query();
+    this.items.query().subscribe((res) => {
+          this.currentItems = res.reverse();
+    });
+    this.getLocation();
+
   }
 
   /**
@@ -31,9 +35,12 @@ export class ListMasterPage {
    */
   addItem() {
     let addModal = this.modalCtrl.create(ItemCreatePage);
-    addModal.onDidDismiss(item => {
+    addModal.onDidDismiss((item: Item) => {
       if (item) {
-        this.items.add(item);
+        console.log(item);
+        this.items.add(item).subscribe((res) => {
+          this.currentItems = res;
+        });
       }
     })
     addModal.present();
@@ -42,8 +49,12 @@ export class ListMasterPage {
   /**
    * Delete an item from the list of items.
    */
-  deleteItem(item) {
-    this.items.delete(item);
+  deleteItem(id, item) {
+    if(item.name == this.name){
+      this.items.delete(id).subscribe((res) => {
+            this.currentItems = res;
+          });
+    }
   }
 
   /**
@@ -54,4 +65,18 @@ export class ListMasterPage {
       item: item
     });
   }
+
+  getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.showPosition);
+      } else {
+          console.log("wrong");
+      }
+  }
+
+  showPosition(position) {
+      console.log(position);
+  }
+
+
 }
