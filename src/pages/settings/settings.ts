@@ -89,6 +89,11 @@ export class SettingsPage {
     });
   }
 
+  logout(){
+    localStorage.removeItem('token');
+		location.reload();
+  }
+
   ngOnChanges() {
     console.log('Ng All Changes');
   }

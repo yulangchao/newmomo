@@ -32,6 +32,9 @@
       <button ion-item [navPush]="subSettings" [navParams]="profileSettings">
         {{ 'SETTINGS_PROFILE_BUTTON' | translate }}
       </button>
+      <button ion-item (click)="logout()">
+        {{ 'LOGOUT' | translate }}
+      </button>
     </ion-list>
 
     <ion-list *ngIf="page == 'profile'">
@@ -40,6 +43,7 @@
         <ion-input formControlName="option4"></ion-input>
       </ion-item>
     </ion-list>
+    
   </form>
 
 </ion-content>
