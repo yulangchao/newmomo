@@ -31,9 +31,6 @@ export class User{
 				let user = response.json();
 				if (user) {
 
-					// store user details and jwt token in local storage to keep user logged in between page refreshes
-
-		  console.log(user);
           delete user["local"]["password"];
           delete user["local"]["username"];
 					this.saveToken(JSON.stringify(user));

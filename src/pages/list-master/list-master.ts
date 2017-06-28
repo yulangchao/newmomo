@@ -4,7 +4,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { ItemCreatePage } from '../item-create/item-create';
 import { ItemDetailPage } from '../item-detail/item-detail';
 
-import { Items } from '../../providers/providers';
+import { Items,Profiles } from '../../providers/providers';
 
 import { Item } from '../../models/item';
 
@@ -13,26 +13,21 @@ import { Item } from '../../models/item';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
-      imgs = [
-      "assets/img/speakers/bear.jpg",
-      "assets/img/speakers/cheetah.jpg",
-      "assets/img/speakers/duck.jpg",
-      "assets/img/speakers/eagle.jpg",
-      "assets/img/speakers/elephant.jpg",
-      "assets/img/speakers/mouse.jpg",
-      "assets/img/speakers/puppy.jpg"
-      ];
+
   currentItems: Array<any> = [];
   name: any;
-  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public profiles: Profiles,) {
     this.items.query().subscribe((res) => {
           this.currentItems = res.reverse();
+          for (let item of this.currentItems){
+            item.img = JSON.parse(item.img);
+          }
+
     });
     if (localStorage.getItem('token')){
        this.name = JSON.parse(localStorage.getItem('token')).local.name;
     }
     this.getLocation();
-
   }
 
   /**
@@ -88,6 +83,10 @@ export class ListMasterPage {
 
   showPosition(position) {
       console.log(position);
+  }
+
+  getImage(email){
+      return this.profiles.getImage(email);
   }
 
 

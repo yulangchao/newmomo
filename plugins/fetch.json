@@ -1,0 +1,20 @@
+{
+    "com.synconset.imagepicker": {
+        "source": {
+            "type": "registry",
+            "id": "https://github.com/Telerik-Verified-Plugins/ImagePicker.git"
+        },
+        "is_top_level": true,
+        "variables": {
+            "PHOTO_LIBRARY_USAGE_DESCRIPTION": "your usage message"
+        }
+    },
+    "cordova-plugin-image-picker": {
+        "source": {
+            "type": "registry",
+            "id": "https://github.com/wymsee/cordova-imagePicker.git"
+        },
+        "is_top_level": true,
+        "variables": {}
+    }
+}

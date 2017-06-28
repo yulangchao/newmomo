@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, ToastController } from 'ionic-angular';
 
 import { MainPage } from '../../pages/pages';
-import { User } from '../../providers/user';
-
+import { User, Profiles } from '../../providers/providers';
+import { LoginPage } from '../login/login';
 import { TranslateService } from '@ngx-translate/core';
 
 
@@ -12,14 +12,24 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: 'signup.html'
 })
 export class SignupPage {
+    imgs = [
+        "assets/img/speakers/bear.jpg",
+        "assets/img/speakers/cheetah.jpg",
+        "assets/img/speakers/duck.jpg",
+        "assets/img/speakers/eagle.jpg",
+        "assets/img/speakers/elephant.jpg",
+        "assets/img/speakers/mouse.jpg",
+        "assets/img/speakers/puppy.jpg"
+    ];
   // The account fields for the login form.
   // If you're using the username field with or without email, make
   // sure to add it to the type
-  account: { username: string, name: string, email: string, password: string } = {
+  account: { username: string, name: string, email: string, password: string, img: string } = {
     username: 'abc',
     name: 'Test Human',
     email: 'test@example.com',
-    password: 'test'
+    password: 'test',
+    img: this.imgs[Math.floor(Math.random() * 7)]
   };
 
   // Our translated text strings
@@ -27,6 +37,7 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController,
     public user: User,
+    public profiles: Profiles,
     public toastCtrl: ToastController,
     public translateService: TranslateService) {
 
@@ -38,10 +49,11 @@ export class SignupPage {
   doSignup() {
     // Attempt to login in through our User service
     this.user.signup(this.account).subscribe((resp) => {
-      this.navCtrl.push(MainPage);
+        console.log(resp);
+        this.profiles.add({"img": this.account.img,"email" : this.account.email}).subscribe((res) => {
+          this.navCtrl.push(LoginPage);
+        });
     }, (err) => {
-
-      this.navCtrl.push(MainPage); // TODO: Remove this when you add your signup endpoint
 
       // Unable to sign up
       let toast = this.toastCtrl.create({

@@ -17,11 +17,14 @@ export class ItemCreatePage {
 
   form: FormGroup;
 
+  imgs: Array<any> = [];
+
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, public camera: Camera) {
     if(localStorage.getItem('token')){
       this.form = formBuilder.group({
         img: [''],
         name: [JSON.parse(localStorage.getItem('token')).local.name],
+        email: [JSON.parse(localStorage.getItem('token')).local.email],
         text: ['']
       });
     }
@@ -42,7 +45,7 @@ export class ItemCreatePage {
         destinationType: this.camera.DestinationType.DATA_URL,
         targetWidth: 96,
         targetHeight: 96,
-        quality: 100,
+        quality: 30,
         mediaType: this.camera.MediaType.PICTURE
       }).then((data) => {
         this.form.patchValue({ 'img': 'data:image/jpg;base64,' + data });
@@ -55,14 +58,16 @@ export class ItemCreatePage {
   }
 
   processWebImage(event) {
-    let reader = new FileReader();
-    reader.onload = (readerEvent) => {
+    let files = event.target.files;
+    for (let file of files){
+      let reader = new FileReader();
+      reader.onload = (readerEvent) => {
+        let imageData = (readerEvent.target as any).result;
+        this.imgs.push(imageData);
+      };
 
-      let imageData = (readerEvent.target as any).result;
-      this.form.patchValue({ 'img': imageData });
-    };
-
-    reader.readAsDataURL(event.target.files[0]);
+      reader.readAsDataURL(file);
+    }
   }
 
   getProfileImageStyle() {
@@ -82,6 +87,9 @@ export class ItemCreatePage {
    */
   done() {
     if (!this.form.valid) { return; }
+    this.form.patchValue({ 'img': JSON.stringify(this.imgs)});
     this.viewCtrl.dismiss(this.form.value);
   }
+
+
 }

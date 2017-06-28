@@ -5,8 +5,7 @@ import { ItemDetailPage } from '../item-detail/item-detail';
 
 import { Item } from '../../models/item';
 
-import { Items } from '../../providers/providers';
-
+import { Items, Profiles } from '../../providers/providers';
 
 @Component({
   selector: 'page-search',
@@ -16,7 +15,7 @@ export class SearchPage {
 
   currentItems: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public items: Items, public profiles: Profiles) { }
 
   /**
    * Perform a service for the proper items.
@@ -41,6 +40,9 @@ export class SearchPage {
     this.navCtrl.push(ItemDetailPage, {
       item: item
     });
+  }
+  getImage(email){
+      return this.profiles.getImage(email);
   }
 
 }

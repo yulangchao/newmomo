@@ -25205,13 +25205,14 @@ page-item-create .profile-image-wrapper {
 }
 
 page-item-create .profile-image-wrapper .profile-image {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
   display: inline-block;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+page-item-create .profile-image-wrapper .profile-image img {
+  margin: 20px;
 }
 
 page-item-create .profile-image-wrapper .profile-image-placeholder {
@@ -25240,6 +25241,21 @@ page-item-detail .item-detail {
   width: 100%;
   background: white;
   position: absolute;
+}
+
+.user-icon {
+  position: absolute;
+  top: 10px;
+}
+
+.timer {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+button img {
+  margin: 5px;
 }
 
 page-map #map {

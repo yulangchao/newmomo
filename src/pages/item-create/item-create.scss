@@ -4,10 +4,9 @@ page-item-create {
     margin: 20px 0;
 
     .profile-image {
-      width: 96px;
-      height: 96px;
-      border-radius: 50%;
-
+      img{
+        margin: 20px;
+      }
       display: inline-block;
 
       background-repeat: no-repeat;
