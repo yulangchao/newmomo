@@ -16,7 +16,7 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item (click)="openItem(item)" (swiperight)="openItem(item)">
+      <div ion-item >
         <ion-avatar item-start>
           <img class="user-icon" [src]="getImage(item.email)" />
         </ion-avatar>
@@ -24,9 +24,9 @@
         <p>{{item.text}}</p>
         <ion-note class="timer pull-right" item-end>{{item.date | amTimeAgo}}</ion-note>
 
-        <img style="width:25%" *ngFor="let img of item.img"
+        <img *ngFor="let img of item.img"
          width="100" height="100"[src]="img" />
-      </button>
+      </div>
       <ion-item-options>
         <button ion-button color="danger" *ngIf="name==item.name" (click)="deleteItem(item._id, item)">
           {{ 'DELETE_BUTTON' | translate }}
