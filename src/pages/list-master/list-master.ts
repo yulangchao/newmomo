@@ -13,6 +13,15 @@ import { Item } from '../../models/item';
   templateUrl: 'list-master.html'
 })
 export class ListMasterPage {
+      imgs = [
+      "assets/img/speakers/bear.jpg",
+      "assets/img/speakers/cheetah.jpg",
+      "assets/img/speakers/duck.jpg",
+      "assets/img/speakers/eagle.jpg",
+      "assets/img/speakers/elephant.jpg",
+      "assets/img/speakers/mouse.jpg",
+      "assets/img/speakers/puppy.jpg"
+      ];
   currentItems: Array<any> = [];
   name: any;
   constructor(public navCtrl: NavController, public items: Items, public modalCtrl: ModalController) {
@@ -42,7 +51,7 @@ export class ListMasterPage {
       if (item) {
         console.log(item);
         this.items.add(item).subscribe((res) => {
-          this.currentItems = res;
+          this.currentItems = res.reverse();
         });
       }
     })
@@ -55,7 +64,7 @@ export class ListMasterPage {
   deleteItem(id, item) {
     if(item.name == this.name){
       this.items.delete(id).subscribe((res) => {
-            this.currentItems = res;
+            this.currentItems = res.reverse();
           });
     }
   }

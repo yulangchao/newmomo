@@ -16,9 +16,9 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item (click)="openItem(item)">
+      <button ion-item (click)="openItem(item)" (swiperight)="openItem(item)">
         <ion-avatar item-start>
-          <img [src]="item.img" />
+          <img [src]="name==item.name ? 'assets/img/speakers/bear.jpg' :'assets/img/speakers/puppy.jpg'" />
         </ion-avatar>
         <h2>{{item.name}}</h2>
         <p>{{item.text}}</p>

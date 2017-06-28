@@ -2,8 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, ViewController } from 'ionic-angular';
 
-import { Camera } from '@ionic-native/camera';
-
+import { Camera,CameraOptions } from '@ionic-native/camera';
 
 @Component({
   selector: 'page-item-create',
@@ -42,7 +41,9 @@ export class ItemCreatePage {
       this.camera.getPicture({
         destinationType: this.camera.DestinationType.DATA_URL,
         targetWidth: 96,
-        targetHeight: 96
+        targetHeight: 96,
+        quality: 100,
+        mediaType: this.camera.MediaType.PICTURE
       }).then((data) => {
         this.form.patchValue({ 'img': 'data:image/jpg;base64,' + data });
       }, (err) => {

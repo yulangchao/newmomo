@@ -6,7 +6,6 @@ import {Subject} from "rxjs/Subject";
 import 'rxjs/Rx';
 Injectable()
 export class User{
-
 	// for change the navbar state between online and offline
 	private authenticate = new Subject<boolean>();
 	authenticateState$ = this.authenticate.asObservable();
@@ -33,7 +32,8 @@ export class User{
 				if (user) {
 
 					// store user details and jwt token in local storage to keep user logged in between page refreshes
-          console.log(user);
+
+		  console.log(user);
           delete user["local"]["password"];
           delete user["local"]["username"];
 					this.saveToken(JSON.stringify(user));
