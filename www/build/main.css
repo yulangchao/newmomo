@@ -25254,8 +25254,8 @@ page-item-detail .item-detail {
   right: 10px;
 }
 
-button img {
-  margin: 5px;
+div img {
+  margin: 2px;
 }
 
 page-map #map {

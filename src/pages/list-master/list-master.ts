@@ -20,7 +20,8 @@ export class ListMasterPage {
     this.items.query().subscribe((res) => {
           this.currentItems = res.reverse();
           for (let item of this.currentItems){
-            item.img = JSON.parse(item.img);
+            item.img1 = JSON.parse(item.img1);
+            console.log(item.img1);
           }
 
     });

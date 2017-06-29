@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, ViewController } from 'ionic-angular';
 
@@ -10,6 +10,7 @@ import { Camera,CameraOptions } from '@ionic-native/camera';
 })
 export class ItemCreatePage {
   @ViewChild('fileInput') fileInput;
+  @ViewChild('canVas') canvas: ElementRef; ;
 
   isReadyToSave: boolean;
 
@@ -18,14 +19,16 @@ export class ItemCreatePage {
   form: FormGroup;
 
   imgs: Array<any> = [];
-
+  imgs1: Array<any> = [];
+  test : any;
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder, public camera: Camera) {
     if(localStorage.getItem('token')){
       this.form = formBuilder.group({
         img: [''],
         name: [JSON.parse(localStorage.getItem('token')).local.name],
         email: [JSON.parse(localStorage.getItem('token')).local.email],
-        text: ['']
+        text: [''],
+        img1: ['']
       });
     }
 
@@ -45,7 +48,7 @@ export class ItemCreatePage {
         destinationType: this.camera.DestinationType.DATA_URL,
         targetWidth: 96,
         targetHeight: 96,
-        quality: 30,
+        quality: 1,
         mediaType: this.camera.MediaType.PICTURE
       }).then((data) => {
         this.form.patchValue({ 'img': 'data:image/jpg;base64,' + data });
@@ -57,6 +60,16 @@ export class ItemCreatePage {
     }
   }
 
+  myCanvas(imageData) {
+    console.log(this.canvas);
+      let context: CanvasRenderingContext2D = this.canvas.nativeElement.getContext("2d");
+      var img = new Image;
+      img.src = imageData;
+      context.drawImage(img,0,0,img.width,img.height,0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+      this.test = this.canvas.nativeElement.toDataURL('image/jpeg', 0.3);
+      this.imgs1.push(this.test);
+  }
+
   processWebImage(event) {
     let files = event.target.files;
     for (let file of files){
@@ -64,6 +77,7 @@ export class ItemCreatePage {
       reader.onload = (readerEvent) => {
         let imageData = (readerEvent.target as any).result;
         this.imgs.push(imageData);
+        this.myCanvas(imageData);
       };
 
       reader.readAsDataURL(file);
@@ -88,6 +102,7 @@ export class ItemCreatePage {
   done() {
     if (!this.form.valid) { return; }
     this.form.patchValue({ 'img': JSON.stringify(this.imgs)});
+    this.form.patchValue({ 'img1': JSON.stringify(this.imgs1)});
     this.viewCtrl.dismiss(this.form.value);
   }
 

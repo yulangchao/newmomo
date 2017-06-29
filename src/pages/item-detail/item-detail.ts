@@ -9,9 +9,14 @@ import { Items } from '../../providers/providers';
 })
 export class ItemDetailPage {
   item: any;
-
+  imgs: Array<any> = [];
   constructor(public navCtrl: NavController, navParams: NavParams, items: Items) {
     this.item = navParams.get('item');
+
+    items.getbyId(this.item._id).subscribe((res) => {
+          this.imgs = JSON.parse(res.img);
+          console.log(this.imgs.length);
+    });
   }
 
 }

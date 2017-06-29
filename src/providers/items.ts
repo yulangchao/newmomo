@@ -18,6 +18,10 @@ export class Items {
       .map(resp => resp.json());
   }
 
+  getbyId(id) {
+      return this.api.get('pyq/'+id)
+      .map(resp => resp.json());
+  }
   add(item: Item) {
     console.log("1111");
     return this.api.post('pyq', item)
