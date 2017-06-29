@@ -48,6 +48,10 @@ export class ListMasterPage {
         console.log(item);
         this.items.add(item).subscribe((res) => {
           this.currentItems = res.reverse();
+          for (let item of this.currentItems){
+            item.img1 = JSON.parse(item.img1);
+            console.log(item.img1);
+          }
         });
       }
     })
@@ -61,6 +65,10 @@ export class ListMasterPage {
     if(item.name == this.name){
       this.items.delete(id).subscribe((res) => {
             this.currentItems = res.reverse();
+            for (let item of this.currentItems){
+              item.img1 = JSON.parse(item.img1);
+              console.log(item.img1);
+            }
           });
     }
   }

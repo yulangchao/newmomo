@@ -66,7 +66,7 @@ export class ItemCreatePage {
       var img = new Image;
       img.src = imageData;
       context.drawImage(img,0,0,img.width,img.height,0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-      this.test = this.canvas.nativeElement.toDataURL('image/jpeg', 0.3);
+      this.test = this.canvas.nativeElement.toDataURL('image/jpg', 0.3);
       this.imgs1.push(this.test);
   }
 
