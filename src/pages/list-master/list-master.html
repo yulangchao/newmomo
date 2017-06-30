@@ -23,7 +23,7 @@
         <h2>{{item.name}}</h2>
         <p>{{item.text}}</p>
         <ion-note class="timer pull-right" item-end>{{item.date | amTimeAgo}}</ion-note>
-        <div *ngFor="let img of item.img1">
+        <div style="width:25%; display:inline;"*ngFor="let img of item.img1">
              <img width="100" height="100"[src]="img" />
         </div>
       </button>

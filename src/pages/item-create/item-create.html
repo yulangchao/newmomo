@@ -41,8 +41,8 @@
           {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
         </div>
       </div>
-           <img class="col-md-3" width="132" height="132"[src]="test" />
-           <div>
+           <!--<img class="col-md-3" width="132" height="132"[src]="test" />-->
+           <div style="display:none;">
       <canvas #canVas width="132" height="132" style="border:1px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
            </div>
       <div class="profile-image" *ngFor="let img of imgs">

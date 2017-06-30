@@ -64,10 +64,16 @@ export class ItemCreatePage {
     console.log(this.canvas);
       let context: CanvasRenderingContext2D = this.canvas.nativeElement.getContext("2d");
       var img = new Image;
+      img.onload = () => {
+        console.log(img);
+        context.drawImage(img,0,0,img.width,img.height,0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+        this.test = this.canvas.nativeElement.toDataURL('image/jpg', 0.3);
+        this.imgs1.push(this.test);
+
+
+      }
       img.src = imageData;
-      context.drawImage(img,0,0,img.width,img.height,0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-      this.test = this.canvas.nativeElement.toDataURL('image/jpg', 0.3);
-      this.imgs1.push(this.test);
+
   }
 
   processWebImage(event) {
@@ -103,6 +109,7 @@ export class ItemCreatePage {
     if (!this.form.valid) { return; }
     this.form.patchValue({ 'img': JSON.stringify(this.imgs)});
     this.form.patchValue({ 'img1': JSON.stringify(this.imgs1)});
+    console.log(this.form.value);
     this.viewCtrl.dismiss(this.form.value);
   }
 
